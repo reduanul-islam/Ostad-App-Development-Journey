@@ -28,7 +28,7 @@ class ContactListScreen extends StatelessWidget {
             TextFormField(
               controller: nameController,
               decoration: InputDecoration(
-                hintText: 'reduanul islam',
+                hintText: 'reduanul',
                 border: OutlineInputBorder(),
               ),
             ),
