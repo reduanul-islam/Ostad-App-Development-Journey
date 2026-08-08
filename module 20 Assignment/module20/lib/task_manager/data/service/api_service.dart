@@ -6,22 +6,13 @@ class ApiService {
     String url,
     Map<String, dynamic> body,
   ) async {
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(body),
-      );
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(body),
+    );
 
-      return jsonDecode(response.body);
-    } catch (e) {
-      return {
-        'status': 'fail',
-        'data': 'Something went wrong',
-      };
-    }
+    return jsonDecode(response.body);
   }
 
   Future<Map<String, dynamic>> postWithToken(
@@ -29,43 +20,18 @@ class ApiService {
     Map<String, dynamic> body,
     String token,
   ) async {
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-          'token': token,
-        },
-        body: jsonEncode(body),
-      );
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json', 'token': token},
+      body: jsonEncode(body),
+    );
 
-      return jsonDecode(response.body);
-    } catch (e) {
-      return {
-        'status': 'fail',
-        'data': 'Something went wrong',
-      };
-    }
+    return jsonDecode(response.body);
   }
 
-  Future<Map<String, dynamic>> getRequest(
-    String url,
-    String token,
-  ) async {
-    try {
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'token': token,
-        },
-      );
+  Future<Map<String, dynamic>> getRequest(String url, String token) async {
+    final response = await http.get(Uri.parse(url), headers: {'token': token});
 
-      return jsonDecode(response.body);
-    } catch (e) {
-      return {
-        'status': 'fail',
-        'data': 'Something went wrong',
-      };
-    }
+    return jsonDecode(response.body);
   }
 }

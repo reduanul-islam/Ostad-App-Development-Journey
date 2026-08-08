@@ -1,28 +1,28 @@
 class TMUrls {
-  static const String baseUrl =
+  static const String baseURL =
       'https://task-manager-api.ostad.live/api/v1';
 
   static const String registration =
-      '$baseUrl/Registration';
+      '$baseURL/Registration';
 
   static const String login =
-      '$baseUrl/login';
+      '$baseURL/Login';
 
   static const String createTask =
-      '$baseUrl/createTask';
+      '$baseURL/createTask';
+
+  static const String taskCount =
+      '$baseURL/taskStatusCount';
 
   static String taskByStatus(String status) {
-    return '$baseUrl/listTaskByStatus/$status';
+    return '$baseURL/listTaskByStatus/$status';
   }
 
-  static String updateTaskStatus(String id, String status) {
-    return '$baseUrl/updateTaskStatus/$id/$status';
+  static String updateTaskStatus(String taskId, String status) {
+    return '$baseURL/updateTaskStatus/$taskId/$status';
   }
 
-  static String deleteTask(String id) {
-    return '$baseUrl/deleteTask/$id';
+  static String deleteTask(String taskId) {
+    return '$baseURL/deleteTask/$taskId';
   }
-
-  static const String taskStatusCount =
-      '$baseUrl/taskStatusCount';
 }

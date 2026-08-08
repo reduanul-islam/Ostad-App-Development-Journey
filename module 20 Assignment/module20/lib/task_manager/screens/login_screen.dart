@@ -8,27 +8,22 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() {
-    return _LoginScreenState();
-  }
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController =
+      TextEditingController();
 
-  final AuthController authController = AuthController();
+  final TextEditingController passwordController =
+      TextEditingController();
+
+  final AuthController authController =
+      AuthController();
 
   bool loading = false;
 
   Future<void> login() async {
-    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Enter email and password')));
-      return;
-    }
-
     setState(() {
       loading = true;
     });
@@ -48,14 +43,16 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) {
-            return HomeScreen(token: authController.token!);
-          },
+          builder: (context) => HomeScreen(
+            token: authController.token!,
+          ),
         ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid email or password')),
+        const SnackBar(
+          content: Text('Invalid email or password'),
+        ),
       );
     }
   }
@@ -70,19 +67,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Task Manager',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-
-            const SizedBox(height: 30),
-
             TextField(
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
@@ -103,15 +94,18 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 25),
 
             SizedBox(
               width: double.infinity,
-              height: 50,
               child: ElevatedButton(
                 onPressed: loading ? null : login,
                 child: loading
-                    ? const CircularProgressIndicator()
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(),
+                      )
                     : const Text('Login'),
               ),
             ),
@@ -123,13 +117,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) {
-                      return const RegisterScreen();
-                    },
+                    builder: (context) =>
+                        const RegistrationScreen(),
                   ),
                 );
               },
-              child: const Text('Create an account'),
+              child: const Text('Create Account'),
             ),
           ],
         ),

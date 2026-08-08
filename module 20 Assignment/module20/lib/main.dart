@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
+import 'task_manager/screens/login_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const TaskManagerApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class TaskManagerApp extends StatelessWidget {
+  const TaskManagerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller =
-        TextEditingController();
-
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Test'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(20),
-          child: TextField(
-            controller: controller,
-          ),
-        ),
+      debugShowCheckedModeBanner: false,
+      title: 'Task Manager',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: const LoginScreen(),
     );
   }
 }

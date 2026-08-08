@@ -11,12 +11,12 @@ class AddTaskScreen extends StatefulWidget {
   });
 
   @override
-  State<AddTaskScreen> createState() {
-    return _AddTaskScreenState();
-  }
+  State<AddTaskScreen> createState() =>
+      _AddTaskScreenState();
 }
 
-class _AddTaskScreenState extends State<AddTaskScreen> {
+class _AddTaskScreenState
+    extends State<AddTaskScreen> {
   final TextEditingController titleController =
       TextEditingController();
 
@@ -29,42 +29,24 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   bool loading = false;
 
   Future<void> createTask() async {
-    if (titleController.text.isEmpty ||
-        descriptionController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter title and description'),
-        ),
-      );
-
-      return;
-    }
-
     setState(() {
       loading = true;
     });
 
-    final success = await taskController.createTask(
+    final success =
+        await taskController.createTask(
       titleController.text.trim(),
       descriptionController.text.trim(),
       widget.token,
     );
 
-    if (!mounted) {
-      return;
-    }
+    if (!mounted) return;
 
     setState(() {
       loading = false;
     });
 
     if (success) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Task created successfully'),
-        ),
-      );
-
       Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -116,11 +98,15 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
             SizedBox(
               width: double.infinity,
-              height: 50,
               child: ElevatedButton(
-                onPressed: loading ? null : createTask,
+                onPressed:
+                    loading ? null : createTask,
                 child: loading
-                    ? const CircularProgressIndicator()
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(),
+                      )
                     : const Text('Create Task'),
               ),
             ),

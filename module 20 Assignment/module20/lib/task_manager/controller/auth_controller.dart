@@ -8,27 +8,6 @@ class AuthController {
   String? token;
   UserModel? user;
 
-  Future<bool> registration(
-    String email,
-    String firstName,
-    String lastName,
-    String mobile,
-    String password,
-  ) async {
-    final response = await apiService.postRequest(
-      TMUrls.registration,
-      {
-        'email': email,
-        'firstName': firstName,
-        'lastName': lastName,
-        'mobile': mobile,
-        'password': password,
-      },
-    );
-
-    return response['status'] == 'success';
-  }
-
   Future<bool> login(
     String email,
     String password,
@@ -52,5 +31,26 @@ class AuthController {
     }
 
     return false;
+  }
+
+  Future<bool> registration(
+    String email,
+    String firstName,
+    String lastName,
+    String mobile,
+    String password,
+  ) async {
+    final response = await apiService.postRequest(
+      TMUrls.registration,
+      {
+        'email': email,
+        'firstName': firstName,
+        'lastName': lastName,
+        'mobile': mobile,
+        'password': password,
+      },
+    );
+
+    return response['status'] == 'success';
   }
 }

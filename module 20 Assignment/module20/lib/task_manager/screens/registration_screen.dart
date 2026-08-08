@@ -1,38 +1,37 @@
 import 'package:flutter/material.dart';
-
 import '../controller/auth_controller.dart';
-import 'login_screen.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() {
-    return _RegisterScreenState();
+  State<RegistrationScreen> createState() {
+    return _RegistrationScreenState();
   }
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController mobileController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final mobileController = TextEditingController();
+  final passwordController = TextEditingController();
 
   final AuthController authController = AuthController();
 
   bool loading = false;
 
-  Future<void> registration() async {
+  Future<void> registerUser() async {
     if (emailController.text.isEmpty ||
         firstNameController.text.isEmpty ||
         lastNameController.text.isEmpty ||
         mobileController.text.isEmpty ||
         passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Please fill all fields')));
-
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill all fields'),
+        ),
+      );
       return;
     }
 
@@ -55,30 +54,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
 
     if (success) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Registration successful')));
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return const LoginScreen();
-          },
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Registration successful'),
         ),
       );
+
+      Navigator.pop(context);
     } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Registration failed')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Registration failed'),
+        ),
+      );
     }
   }
 
   @override
   void dispose() {
-    emailController.dispose();
     firstNameController.dispose();
     lastNameController.dispose();
+    emailController.dispose();
     mobileController.dispose();
     passwordController.dispose();
 
@@ -88,13 +84,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Registration')),
+      appBar: AppBar(
+        title: const Text('Registration'),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            const SizedBox(height: 20),
-
             TextField(
               controller: firstNameController,
               decoration: const InputDecoration(
@@ -150,11 +146,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
             SizedBox(
               width: double.infinity,
-              height: 50,
               child: ElevatedButton(
-                onPressed: loading ? null : registration,
+                onPressed: loading ? null : registerUser,
                 child: loading
-                    ? const CircularProgressIndicator()
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(),
+                      )
                     : const Text('Register'),
               ),
             ),
